@@ -1,6 +1,17 @@
+"use client";
+
 import { Map, MessageSquare, Sparkle } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import ThemeToggle from "./ui/theme-toggle";
+import {
+  Show,
+  SignIn,
+  SignInButton,
+  SignUp,
+  SignUpButton,
+} from "@clerk/nextjs";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
@@ -29,6 +40,28 @@ const Navbar = () => {
             <MessageSquare className=" h-4 w-4" />
             Feedback
           </Link>
+        </div>
+        <div className=" flex items-center gap-4">
+          <ThemeToggle />
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <Button variant="outline" size="sm">
+                Sign In
+              </Button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <Button variant="outline" size="sm">
+                Sign Up
+              </Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <SignInButton mode="modal">
+              <Button variant="outline" size="sm">
+                Sign Out
+              </Button>
+            </SignInButton>
+          </Show>
         </div>
       </div>
     </nav>

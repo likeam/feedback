@@ -5,13 +5,8 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import {
-  ClerkProvider,
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import ThemeProvider from "@/components/ui/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,20 +23,32 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html
+        lang="en"
+        className="dark"
+        style={{ colorScheme: "dark" }}
+        suppressHydrationWarning
+      >
         <body className={`${inter.className} min-h-screen flex flex-col `}>
-          {/* Navbar */}
-          <Navbar />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/* Navbar */}
+            <Navbar />
 
-          {/* Main Section  */}
+            {/* Main Section  */}
 
-          <main className=" flex-1 container mx-auto px-4 py-8">
-            {children}
-          </main>
+            <main className=" flex-1 container mx-auto px-4 py-8">
+              {children}
+            </main>
 
-          {/* Footer  */}
-          <Footer />
-          <Toaster />
+            {/* Footer  */}
+            <Footer />
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
