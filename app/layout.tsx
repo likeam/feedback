@@ -33,11 +33,11 @@ export default function RootLayout({
           {/* Navbar */}
           <Navbar />
 
+          {/* Main Section  */}
+
           <main className=" flex-1 container mx-auto px-4 py-8">
             {children}
           </main>
-
-          {/* Main Section  */}
 
           {/* Footer  */}
           <Footer />
