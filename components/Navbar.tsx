@@ -8,8 +8,10 @@ import {
   Show,
   SignIn,
   SignInButton,
+  SignOutButton,
   SignUp,
   SignUpButton,
+  UserButton,
 } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
@@ -56,11 +58,7 @@ const Navbar = () => {
             </SignUpButton>
           </Show>
           <Show when="signed-in">
-            <SignInButton mode="modal">
-              <Button variant="outline" size="sm">
-                Sign Out
-              </Button>
-            </SignInButton>
+            <UserButton />
           </Show>
         </div>
       </div>
