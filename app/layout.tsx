@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import ThemeProvider from "@/components/ui/theme-provider";
+import { syncCurrentUser } from "@/lib/sync-user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +17,12 @@ export const metadata: Metadata = {
     " A platform for users to submit and vote on feedback for a product or service.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await syncCurrentUser(); // Ensure the current user is synced before rendering the app
   return (
     <ClerkProvider>
       <html

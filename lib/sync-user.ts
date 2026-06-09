@@ -31,15 +31,19 @@ export async function syncCurrentUser() {
       });
     } else {
       // Create a new user if they don't exist
+      const userCount = await prisma.user.count();
+      const isFirstUser = userCount === 0;
       dbUser = await prisma.user.create({
         data: {
           clerkUserId: clerkUser.id,
           email: email,
           name: `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim(),
           image: clerkUser.imageUrl,
+          roles: isFirstUser ? ["admin"] : ["user"], // Assign admin role to the first user, and user role to others
         },
       });
     }
+    console.log("User synced successfully:", dbUser);
     return dbUser;
   } catch (error) {
     console.error("Error syncing user:", error);
