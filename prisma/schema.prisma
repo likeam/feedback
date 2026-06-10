@@ -46,7 +46,7 @@ model Vote {
   post    Post  @relation(fields: [postId], references: [id])
   postId  Int
 
- 
+  @@unique([userId, postId]) 
   @@map("votes")
 }
 

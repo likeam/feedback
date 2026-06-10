@@ -1,9 +1,11 @@
+import { STATUS_ORDER } from "@/app/data/status-data";
+import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: number }> },
 ) {
   try {
     const { userId } = await auth();
@@ -20,16 +22,26 @@ export async function PATCH(
     }
 
     const { status } = await request.json();
-    const feedbackId = await params.then((p) => p.id);
-    const updatedFeedback = await prisma.feedback.update({
-      where: { id: feedbackId },
+    const { id: postId } = await params;
+
+    // Validate status
+    if (!STATUS_ORDER.includes(status)) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    }
+
+    const updatedPost = await prisma.post.update({
+      where: { id: postId },
       data: { status },
+      include: {
+        author: true,
+        votes: true,
+      },
     });
-    return NextResponse.json(updatedFeedback);
+
+    return NextResponse.json(updatedPost);
   } catch (error) {
-    console.error("Error updating feedback status:", error);
     return NextResponse.json(
-      { error: "Failed to update feedback status" },
+      { error: "Failed to update Post status" },
       { status: 500 },
     );
   }
