@@ -24,7 +24,6 @@ const Home = () => {
       >
         <div className=" flex flex-rows gap-4 justify-center pt-4">
           <Button
-            asChild
             size="lg"
             className=" bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
           >
@@ -33,7 +32,6 @@ const Home = () => {
             </Link>
           </Button>
           <Button
-            asChild
             size="lg"
             className=" bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
           >

@@ -32,12 +32,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <body className={`${inter.className} min-h-screen flex flex-col `}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {/* Navbar */}
             <Navbar />
 
